@@ -80,7 +80,7 @@ async function loadItems() {
   const seen = new Set();
 
   // Lấy mọi anchor có cả ?name=... và &url=...
-  const re = /<a\b[^>]*href=["']([^"']*?[?&]name=[^"']*?[&](?:amp;)?url=[^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
+  const re = /<a\\b[^>]*href=["']([^"']+)["'][^>]*>([\\s\\S]*?)<\\/a>/gi;
   let m;
 
   while ((m = re.exec(html)) !== null) {
