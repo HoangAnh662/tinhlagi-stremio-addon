@@ -88,11 +88,24 @@ async function loadItems() {
     const label = stripTags(m[2]);
     let poster = null;
 
-const imgMatch = m[2].match(/<img[^>]+src=["']([^"']+)["']/i);
-if (imgMatch) {
-  try {
-    poster = new URL(unescapeHtml(imgMatch[1]), SOURCE).href;
-  } catch {}
+const logoDomains = {
+  "HBO": "hbo.com",
+  "Cinemax HD": "cinemax.com",
+  "Cartoon Network HD": "cartoonnetwork.com",
+  "Cartoonito": "cartoonito.com",
+  "BBC Earth": "bbcearth.com",
+  "BBC Lifestyle": "bbc.com",
+  "Dreamworks": "dreamworks.com",
+  "Fashion TV": "fashiontv.com",
+  "TLC": "tlc.com",
+  "VTV1": "vtv.vn",
+  "VTV2": "vtv.vn",
+  "VTV3": "vtv.vn"
+};
+
+const domain = logoDomains[label];
+if (domain) {
+  poster = `https://www.google.com/s2/favicons?sz=256&domain_url=https://${domain}`;
 }
 
     try {
