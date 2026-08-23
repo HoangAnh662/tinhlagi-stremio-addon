@@ -88,27 +88,33 @@ async function loadItems() {
     const label = stripTags(m[2]);
     let poster = null;
 
-const n = label.toUpperCase();
-let domain = null;
+const n = label.toUpperCase().trim();
 
-if (/^VTV/.test(n) || n.includes("VIETNAM TODAY")) domain = "vtv.vn";
-else if (/^VTV ?CAB|^ON /.test(n)) domain = "vtvcab.vn";
-else if (/^SCTV/.test(n)) domain = "sctv.com.vn";
-else if (/^HTV/.test(n) || /^HTVC/.test(n)) domain = "htv.com.vn";
-else if (/^THVL/.test(n)) domain = "thvli.vn";
-else if (/^VTC/.test(n)) domain = "vtc.gov.vn";
-else if (n.includes("HBO")) domain = "hbo.com";
-else if (n.includes("CINEMAX")) domain = "cinemax.com";
-else if (n.includes("CARTOON NETWORK")) domain = "cartoonnetwork.com";
-else if (n.includes("BBC")) domain = "bbc.com";
-else if (n.includes("DREAMWORKS")) domain = "dreamworks.com";
-else if (n.includes("DISCOVERY")) domain = "discovery.com";
-else if (n.includes("FASHION TV")) domain = "fashiontv.com";
-else if (n.includes("WARNER TV")) domain = "warnertv.com";
+// Tên dài thì tách thành nhiều dòng
+const words = n.split(/\s+/);
+let lines = [];
+let line = "";
 
-if (domain) {
-  poster = `https://www.google.com/s2/favicons?domain=${domain}&sz=256`;
+for (const word of words) {
+  const test = line ? `${line} ${word}` : word;
+
+  if (test.length > 12 && line) {
+    lines.push(line);
+    line = word;
+  } else {
+    line = test;
+  }
 }
+
+if (line) lines.push(line);
+
+// Tối đa 3 dòng
+const logoText = lines.slice(0, 3).join("\n");
+
+poster =
+  `https://placehold.co/600x600/202020/FFFFFF.png?` +
+  `text=${encodeURIComponent(logoText)}`;
+
 
     try {
       const pageUrl = new URL(href, SOURCE);
