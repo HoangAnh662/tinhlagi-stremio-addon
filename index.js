@@ -6,7 +6,7 @@ const SOURCE = "https://tinhlagi.pro/tivi/";
 const manifest = {
   id: "org.tinhlagi.live",
   version: "1.0.0",
-  name: "Hoàng Anh TV",
+  name: "HoàngAnh TV",
   description: "Đọc danh sách kênh/phim công khai từ tinhlagi.pro/tivi và đưa vào Stremio.",
   resources: ["catalog", "meta", "stream"],
   types: ["tv"],
@@ -14,7 +14,7 @@ const manifest = {
     {
       type: "tv",
       id: "tinhlagi",
-      name: "Hoàng Anh TV",
+      name: "HoàngAnh TV",
       extra: [{ name: "search", isRequired: false }]
     }
   ],
@@ -86,6 +86,14 @@ async function loadItems() {
   while ((m = re.exec(html)) !== null) {
     let href = unescapeHtml(m[1]);
     const label = stripTags(m[2]);
+    let poster = null;
+
+const imgMatch = m[2].match(/<img[^>]+src=["']([^"']+)["']/i);
+if (imgMatch) {
+  try {
+    poster = new URL(unescapeHtml(imgMatch[1]), SOURCE).href;
+  } catch {}
+}
 
     try {
       const pageUrl = new URL(href, SOURCE);
@@ -98,7 +106,11 @@ async function loadItems() {
       if (seen.has(key)) continue;
       seen.add(key);
 
-      items.push({ name: name.trim(), url: streamUrl.trim() });
+    items.push({
+  name: name.trim(),
+  url: streamUrl,
+  poster
+});
     } catch {}
   }
 
@@ -116,6 +128,8 @@ function toMeta(item) {
     type: "tv",
     name: item.name,
     description: "Nguồn: tinhlagi.pro",
+    poster: item.poster || undefined,
+    background: item.poster || undefined,
     posterShape: "square"
   };
 }
