@@ -111,10 +111,35 @@ if (line) lines.push(line);
 // Tối đa 3 dòng
 const logoText = lines.slice(0, 3).join("\n");
 
-poster =
-  `https://placehold.co/600x600/202020/FFFFFF.png?` +
-  `text=${encodeURIComponent(logoText)}`;
+// Chọn màu nền theo nhóm kênh
+let bg = "37474F"; // mặc định xám xanh
 
+if (/^VTV/.test(n) || n.includes("VIETNAM TODAY")) {
+  bg = "1565C0"; // VTV - xanh
+} else if (/^SCTV/.test(n)) {
+  bg = "D32F2F"; // SCTV - đỏ
+} else if (/^HTV/.test(n) || /^HTVC/.test(n)) {
+  bg = "00897B"; // HTV - xanh ngọc
+} else if (n.includes("BBC")) {
+  bg = "B71C1C"; // BBC - đỏ đậm
+} else if (n.includes("HBO") || n.includes("CINEMAX")) {
+  bg = "4527A0"; // HBO/Cinemax - tím
+} else if (
+  n.includes("CARTOON") ||
+  n.includes("DREAMWORKS")
+) {
+  bg = "0277BD"; // thiếu nhi - xanh
+} else if (
+  n.includes("CNN") ||
+  n.includes("CNBC") ||
+  n.includes("BLOOMBERG")
+) {
+  bg = "283593"; // tin tức - xanh tím
+}
+
+poster =
+  `https://placehold.co/600x600/${bg}/FFFFFF.png?` +
+  `text=${encodeURIComponent(logoText)}`;
 
     try {
       const pageUrl = new URL(href, SOURCE);
