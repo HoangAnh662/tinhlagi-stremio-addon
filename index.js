@@ -6,7 +6,7 @@ const SOURCE = "https://tinhlagi.pro/tivi/";
 const manifest = {
   id: "org.tinhlagi.live",
   version: "1.0.0",
-  name: "HoàngAnh TV",
+  name: "HoàngAnh",
   description: "Đọc danh sách kênh/phim công khai từ tinhlagi.pro/tivi và đưa vào Stremio.",
   resources: ["catalog", "meta", "stream"],
   types: ["tv"],
@@ -14,7 +14,7 @@ const manifest = {
     {
       type: "tv",
       id: "tinhlagi",
-      name: "HoàngAnh TV",
+      name: "HoàngAnh",
       extra: [{ name: "search", isRequired: false }]
     }
   ],
@@ -123,13 +123,16 @@ if (imgMatch) {
 }
 
 function toMeta(item) {
+  const poster = item.poster || 
+    `https://placehold.co/512x512/202020/FFFFFF.png?text=${encodeURIComponent(item.name)}`;
+
   return {
     id: encodeId(item),
     type: "tv",
     name: item.name,
     description: "Nguồn: tinhlagi.pro",
-    poster: item.poster || undefined,
-    background: item.poster || undefined,
+    poster: poster,
+    background: poster,
     posterShape: "square"
   };
 }
