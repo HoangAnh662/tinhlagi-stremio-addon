@@ -6,7 +6,7 @@ const SOURCE = "https://tinhlagi.pro/tivi/";
 const manifest = {
   id: "org.tinhlagi.live",
   version: "1.0.0",
-  name: "Tinhlagi TV",
+  name: "Hoàng Anh TV",
   description: "Đọc danh sách kênh/phim công khai từ tinhlagi.pro/tivi và đưa vào Stremio.",
   resources: ["catalog", "meta", "stream"],
   types: ["tv"],
@@ -14,7 +14,7 @@ const manifest = {
     {
       type: "tv",
       id: "tinhlagi",
-      name: "Tinhlagi TV",
+      name: "Hoàng Anh TV",
       extra: [{ name: "search", isRequired: false }]
     }
   ],
