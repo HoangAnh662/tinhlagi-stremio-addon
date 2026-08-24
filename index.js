@@ -103,7 +103,33 @@ const foreignKeywords = [
   "WARNER",
   "ANIMAL PLANET",
   "NATIONAL GEOGRAPHIC",
-  "NAT GEO"
+  "NAT GEO",
+
+  "ASIAN FOOD NETWORK",
+  "CINEMA WORLD",
+  "ARIRANG",
+  "CNA",
+  "CGTN",
+  "TV5MONDE",
+  "DW",
+  "DA VINCI",
+  "FRANCE 24",
+  "KBS WORLD",
+  "NHK WORLD",
+
+  "AL JAZEERA",
+  "TRT WORLD",
+  "OUTDOOR CHANNEL",
+  "HISTORY",
+  "DMAX",
+  "FASHION TV",
+  "KIX",
+  "TLC",
+  "BOX MOVIE",
+  "HOLLYWOOD CLASSICS",
+  "BOX HITS",
+  "MUSIC BOX",
+  "WOMAN"
 ];
 
 if (foreignKeywords.some(k => n.includes(k))) {
