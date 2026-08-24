@@ -144,23 +144,18 @@ builder.defineMetaHandler(async ({ type, id }) => {
 
 builder.defineStreamHandler(async ({ type, id }) => {
   if (type !== "tv") return { streams: [] };
+
   const item = decodeId(id);
-  if (!item) return { streams: [] };
+  if (!item || !item.url) return { streams: [] };
 
   return {
     streams: [
       {
-        name: "Tinhlagi",
+        name: "Hoàng Anh TV",
         title: item.name,
         url: item.url,
         behaviorHints: {
-          notWebReady: false,
-          proxyHeaders: {
-            request: {
-              "User-Agent": "Mozilla/5.0 (Android) AppleWebKit/537.36 Chrome/126 Safari/537.36",
-              "Referer": "https://tinhlagi.pro/"
-            }
-          }
+          notWebReady: true
         }
       }
     ]
