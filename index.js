@@ -4,17 +4,17 @@ const PORT = Number(process.env.PORT || 7000);
 const SOURCE = "https://tinhlagi.pro/tivi/";
 
 const manifest = {
-  id: "org.tinhlagi.live",
+id: "org.tinhlagi.hbotest",
   version: "1.0.0",
-  name: "Tinhlagi TV",
-  description: "Đọc danh sách kênh/phim công khai từ tinhlagi.pro/tivi và đưa vào Stremio.",
+  name: "HBO Test",
+description: "Bản thử nghiệm HBO",
   resources: ["catalog", "meta", "stream"],
   types: ["tv"],
   catalogs: [
     {
       type: "tv",
       id: "tinhlagi",
-      name: "Tinhlagi TV",
+      name: "HBO Test",
       extra: [{ name: "search", isRequired: false }]
     }
   ],
@@ -125,6 +125,7 @@ builder.defineCatalogHandler(async ({ type, id, extra }) => {
 
   try {
     let items = await loadItems();
+    items = items.filter(x => x.name.trim().toLowerCase() === "hbo");
     const q = (extra && extra.search ? String(extra.search) : "").trim().toLowerCase();
     if (q) items = items.filter(x => x.name.toLowerCase().includes(q));
 
