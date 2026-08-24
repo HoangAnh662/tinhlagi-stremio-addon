@@ -89,7 +89,27 @@ async function loadItems() {
     let poster = null;
 
 const n = label.toUpperCase().trim();
+const foreignKeywords = [
+  "BBC",
+  "HBO",
+  "CINEMAX",
+  "CARTOON",
+  "DREAMWORKS",
+  "CNN",
+  "CNBC",
+  "BLOOMBERG",
+  "DISCOVERY",
+  "AXN",
+  "WARNER",
+  "ANIMAL PLANET",
+  "NATIONAL GEOGRAPHIC",
+  "NAT GEO"
+];
 
+if (foreignKeywords.some(k => n.includes(k))) {
+  continue;
+}
+    
 // Tên dài thì tách thành nhiều dòng
 const words = n.split(/\s+/);
 let lines = [];
