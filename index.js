@@ -262,15 +262,7 @@ builder.defineStreamHandler(async ({ type, id }) => {
         name: "Tinhlagi",
         title: item.name,
         url: item.url,
-        behaviorHints: {
-          notWebReady: false,
-          proxyHeaders: {
-            request: {
-              "User-Agent": "Mozilla/5.0 (Android) AppleWebKit/537.36 Chrome/126 Safari/537.36",
-              "Referer": "https://tinhlagi.pro/"
-            }
-          }
-        }
+        
       }
     ]
   };
