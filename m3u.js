@@ -37,13 +37,11 @@ async function createM3U() {
         `${ADDON}/stream/tv/${encodeURIComponent(item.id)}.json`
       );
 
-      const stream = (streamData.streams || []).find(
-        (s) => s && s.url
-      );
+      const stream = (streamData.streams || []).find((s) => s.url);
 
       if (!stream) continue;
 
-      const name = item.name || "TV";
+      const name = (item.name || "TV").replace(/\n/g, " ").trim();
       const logo = item.poster || "";
 
       m3u += `#EXTINF:-1 tvg-logo="${logo}",${name}\n`;
@@ -62,8 +60,8 @@ const server = http.createServer(async (req, res) => {
       const m3u = await createM3U();
 
       res.writeHead(200, {
-        "Content-Type": "application/x-mpegURL; charset=utf-8",
-        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/vnd.apple.mpegurl; charset=utf-8",
+        "Access-Control-Allow-Origin": "*"
       });
 
       res.end(m3u);
@@ -71,21 +69,22 @@ const server = http.createServer(async (req, res) => {
       console.error(err);
 
       res.writeHead(500, {
-        "Content-Type": "text/plain; charset=utf-8",
+        "Content-Type": "text/plain; charset=utf-8"
       });
 
-      res.end("Khong tao duoc playlist");
+      res.end("Khong tao duoc playlist M3U");
     }
 
     return;
   }
 
   res.writeHead(404, {
-    "Content-Type": "text/plain; charset=utf-8",
+    "Content-Type": "text/plain; charset=utf-8"
   });
 
   res.end("Not found");
 });
 
 server.listen(PORT, () => {
-  console.log(`M3U server running on port
+  console.log(`M3U server running on port ${PORT}`);
+});
