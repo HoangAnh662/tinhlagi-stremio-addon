@@ -55,32 +55,27 @@ async function createM3U() {
 }
 
 const server = http.createServer(async (req, res) => {
-  const path = (req.url || "").split("?")[0];
-
-  if (
-    path === "/" ||
-    path === "/playlist.m3u" ||
-    path === "/playlist.m3u/"
-  ) {
+  if (req.url === "/" || req.url === "/playlist.m3u") {
     try {
       const m3u = await createM3U();
 
       res.writeHead(200, {
         "Content-Type": "application/vnd.apple.mpegurl; charset=utf-8",
-        "Access-Control-Allow-Origin": "*",
-        "Cache-Control": "no-cache"
+        "Access-Control-Allow-Origin": "*"
       });
 
-      return res.end(m3u);
+      res.end(m3u);
     } catch (err) {
-      console.error("M3U ERROR:", err);
+      console.error(err);
 
       res.writeHead(500, {
         "Content-Type": "text/plain; charset=utf-8"
       });
 
-      return res.end("Khong tao duoc playlist M3U");
+      res.end("Khong tao duoc playlist M3U");
     }
+
+    return;
   }
 
   res.writeHead(404, {
@@ -89,6 +84,7 @@ const server = http.createServer(async (req, res) => {
 
   res.end("Not found");
 });
+
 server.listen(PORT, () => {
   console.log(`M3U server running on port ${PORT}`);
 });
