@@ -89,15 +89,11 @@ async function loadItems() {
 
 const originalLogo = logoMatch ? logoMatch[1] : null;
 
-const poster = originalLogo
-  ? `https://wsrv.nl/?url=${encodeURIComponent(originalLogo)}&w=330&h=330&fit=contain&we&output=png`
-  : null;
-
+const poster = originalLogo;
 current = {
   name,
   poster
 };
-
       continue;
     }
 
