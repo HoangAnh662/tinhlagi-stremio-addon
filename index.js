@@ -85,12 +85,18 @@ async function loadItems() {
         line.substring(line.lastIndexOf(",") + 1).trim();
 
       const logoMatch =
-        line.match(/tvg-logo="([^"]*)"/i);
+  line.match(/tvg-logo="([^"]*)"/i);
 
-      current = {
-        name,
-        poster: logoMatch ? logoMatch[1] : null
-      };
+const originalLogo = logoMatch ? logoMatch[1] : null;
+
+const poster = originalLogo
+  ? `https://wsrv.nl/?url=${encodeURIComponent(originalLogo)}&w=330&h=330&fit=contain&we&output=png`
+  : null;
+
+current = {
+  name,
+  poster
+};
 
       continue;
     }
